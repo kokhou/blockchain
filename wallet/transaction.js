@@ -1,8 +1,8 @@
-const ChainUtils = require('../chain-util')
+const ChainUtil = require('../chain-util')
 
 class Transaction {
     constructor() {
-        this.id = ChainUtils.id()
+        this.id = ChainUtil.id()
         this.input = null
         this.outputs = []
     }
@@ -30,15 +30,15 @@ class Transaction {
             timestamp: Date.now(),
             amount: senderWallet.balance,
             address: senderWallet.publicKey,
-            signature: senderWallet.sign(ChainUtils.hash(transaction.outputs))
+            signature: senderWallet.sign(ChainUtil.hash(transaction.outputs))
         }
     }
 
     static verifyTransaction(transaction) {
-        return ChainUtils.verifySignature(
+        return ChainUtil.verifySignature(
             transaction.input.address,
             transaction.input.signature,
-            ChainUtils.hash(transaction.outputs)
+            ChainUtil.hash(transaction.outputs)
         )
     }
 }
